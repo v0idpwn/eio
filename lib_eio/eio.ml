@@ -25,6 +25,7 @@ module Flow = Flow
 module Buf_read = Buf_read
 module Buf_write = Buf_write
 module Net = Net
+module Dns = Dns
 module Domain_manager = Domain_manager
 module Time = Time
 module Unix_perm = Dir.Unix_perm
@@ -38,6 +39,7 @@ module Stdenv = struct
     net : Net.t;
     domain_mgr : Domain_manager.t;
     clock : Time.clock;
+    dns : Dns.t;
     fs : Dir.t;
     cwd : Dir.t;
     secure_random : Flow.source;
@@ -51,5 +53,6 @@ module Stdenv = struct
   let clock (t : <clock : #Time.clock; ..>) = t#clock
   let secure_random (t: <secure_random : #Flow.source; ..>) = t#secure_random
   let fs (t : <fs : #Dir.t; ..>) = t#fs
+  let dns (t : <dns : #Dns.t; ..>) = t#dns
   let cwd (t : <cwd : #Dir.t; ..>) = t#cwd
 end

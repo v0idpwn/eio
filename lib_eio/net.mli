@@ -47,7 +47,7 @@ module Ipaddr : sig
   type v4v6 = [`V4 | `V6] t
 
   val fold :
-    v4:([> `V4] t -> 'a) -> 
+    v4:([> `V4] t -> 'a) ->
     v6:([> `V6] t -> 'a) ->
     [< `V4 | `V6] t ->
     'a
@@ -106,6 +106,7 @@ class virtual t : object
   method virtual datagram_socket : sw:Switch.t -> Sockaddr.datagram -> <datagram_socket; Flow.close>
 end
 
+
 (** {2 Out-bound Connections} *)
 
 val connect : sw:Switch.t -> #t -> Sockaddr.stream -> <stream_socket; Flow.close>
@@ -163,11 +164,11 @@ val datagram_socket : sw:Switch.t -> #t -> Sockaddr.datagram -> <datagram_socket
     and received from. The new socket will be closed when [sw] finishes. *)
 
 val send : #datagram_socket -> Sockaddr.datagram -> Cstruct.t -> unit
-(** [send sock addr buf] sends the data in [buf] to the address [addr] using the 
+(** [send sock addr buf] sends the data in [buf] to the address [addr] using the
     the datagram socket [sock]. *)
 
 val recv : #datagram_socket -> Cstruct.t -> Sockaddr.datagram * int
-(** [recv sock buf] receives data from the socket [sock] putting it in [buf]. The number of bytes received is 
+(** [recv sock buf] receives data from the socket [sock] putting it in [buf]. The number of bytes received is
     returned along with the sender address and port. If the [buf] is too small then excess bytes may be discarded
     depending on the type of the socket the message is received from. *)
 

@@ -81,6 +81,9 @@ module Buf_write = Buf_write
 (** Networking. *)
 module Net = Net
 
+(** DNS **)
+module Dns = Dns
+
 (** Parallel computation across multiple CPU cores. *)
 module Domain_manager : sig
   class virtual t : object
@@ -156,6 +159,7 @@ module Stdenv : sig
     net : Net.t;
     domain_mgr : Domain_manager.t;
     clock : Time.clock;
+    dns : Dns.t;
     fs : Dir.t;
     cwd : Dir.t;
     secure_random : Flow.source;
@@ -176,6 +180,9 @@ module Stdenv : sig
   val cwd : <cwd : #Dir.t as 'a; ..> -> 'a
   (** [cwd t] is the current working directory of the process (this may change
       over time if the process does a "chdir" operation, which is not recommended). *)
+
+  val dns : <dns : #Dns.t as 'a; ..> -> 'a
+  (* [dns t] gives access to dns utilities *)
 
   val fs : <fs : #Dir.t as 'a; ..> -> 'a
   (** [fs t] is the process's full access to the filesystem.
